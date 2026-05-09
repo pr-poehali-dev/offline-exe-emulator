@@ -8,6 +8,7 @@ interface HistoryItem {
   duration: string;
   status: "success" | "error" | "stopped";
   fps: number;
+  type: "exe" | "apk";
 }
 
 const STATUS_META = {
@@ -17,11 +18,12 @@ const STATUS_META = {
 };
 
 const INITIAL: HistoryItem[] = [
-  { id: "1", name: "game_launcher.exe", runAt: "09.05.2026 14:32", duration: "1ч 23м", status: "success", fps: 58 },
-  { id: "2", name: "setup_wizard.exe", runAt: "09.05.2026 12:10", duration: "4м 12с", status: "stopped", fps: 44 },
-  { id: "3", name: "old_app.exe", runAt: "08.05.2026 22:45", duration: "0м 38с", status: "error", fps: 12 },
-  { id: "4", name: "media_player.exe", runAt: "08.05.2026 19:02", duration: "47м 05с", status: "success", fps: 60 },
-  { id: "5", name: "game_launcher.exe", runAt: "07.05.2026 16:18", duration: "2ч 04м", status: "success", fps: 61 },
+  { id: "1", name: "game_launcher.exe", runAt: "09.05.2026 14:32", duration: "1ч 23м", status: "success", fps: 58, type: "exe" },
+  { id: "2", name: "angry_birds.apk", runAt: "09.05.2026 13:05", duration: "32м 10с", status: "success", fps: 55, type: "apk" },
+  { id: "3", name: "setup_wizard.exe", runAt: "09.05.2026 12:10", duration: "4м 12с", status: "stopped", fps: 44, type: "exe" },
+  { id: "4", name: "old_app.exe", runAt: "08.05.2026 22:45", duration: "0м 38с", status: "error", fps: 12, type: "exe" },
+  { id: "5", name: "subway_surf.apk", runAt: "08.05.2026 20:14", duration: "1ч 02м", status: "success", fps: 59, type: "apk" },
+  { id: "6", name: "media_player.exe", runAt: "08.05.2026 19:02", duration: "47м 05с", status: "success", fps: 60, type: "exe" },
 ];
 
 const HistoryTab = () => {
@@ -78,7 +80,18 @@ const HistoryTab = () => {
                 <Icon name={meta.icon} size={18} style={{ color: meta.color }} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-white/90 font-medium truncate">{item.name}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-white/90 font-medium truncate">{item.name}</p>
+                  <span
+                    className="text-[10px] font-semibold px-1.5 py-0.5 rounded-md flex-shrink-0"
+                    style={{
+                      background: item.type === "apk" ? "rgba(16,185,129,0.15)" : "rgba(59,130,246,0.15)",
+                      color: item.type === "apk" ? "#10b981" : "#60a5fa",
+                    }}
+                  >
+                    {item.type.toUpperCase()}
+                  </span>
+                </div>
                 <p className="text-white/35 text-xs mt-0.5">{item.runAt}</p>
               </div>
               <div className="text-right flex-shrink-0">
